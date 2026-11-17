@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+  <h1>Τοπική αποθήκευση Math Challenge</h1>
+
+  <div id="menu">
+    <button onclick="setMode('easy')">Easy</button>
+    <button onclick="setMode('medium')">Medium</button>
+  </div>
+
+  <hr>
+
+  <div id="game-area" style="display:none;">
+    <h3 id="mode-title"></h3>
+
+    <h2>
+      <p id="skor"> </p>
+      <span id="num1"></span>
+      [?]
+      <span id="num2"></span> =
+      <span id="result"></span>
+    </h2>
+
+    <button onclick="checkAnswer('+')">+</button>
+    <button onclick="checkAnswer('-')">-</button>
+
+    <p id="feedback"></p>
+  </div>
+
+<button onclick = back()> Πίσω </button>
+  <script>
+
+  let score = 0;
+    function setMode(mode) {
+      score = 0;
+      currentMode = mode;
+      document.getElementById('skor').innerText = score;
+      document.getElementById('game-area').style.display = "block";
+      document.getElementById('feedback').innerText = '';
+
+      if (mode == 'easy') {
+        document.getElementById('mode-title').innerText = 'Επίπεδο εύκολο';
+        generateEasy();
+      } else if (mode == 'medium') {
+        document.getElementById('mode-title').innerText = 'Επίπεδο μέτριο';
+        generateMedium();
+      }
+    }
+
+
+    function back() {
+
+      document.getElementById('game-area').style.display = 'none';
+      document.getElementById('menu').style.display = 'block';
+
+
+      document.getElementById('feedback').innerText = '';
+    }
+
+    function generateEasy() {
+      let a = Math.floor(Math.random() * 10) + 1;
+      let b = Math.floor(Math.random() * 10) + 1;
+
+      let operators = ['+', '-'];
+      correctOperator = operators[Math.floor(Math.random() * operators.length)];
+      let res;
+
+      if (correctOperator === '+') {
+        res = a + b;
+      } else {
+        res = a - b;
+      }
+
+      document.getElementById('num1').innerText = a;
+      document.getElementById('num2').innerText = b;
+      document.getElementById('result').innerText = res;
+    }
+
+    function generateMedium() {
+      generateEasy();
+    }
+
+    function checkAnswer(userChoice) {
+      let feedback1 = document.getElementById('feedback');
+
+      if (userChoice === correctOperator) {
+        score++ ;
+        feedback1.innerText = 'Σωστός';
+      } else {
+        score -- ;
+        feedback1.innerText = 'Λάθος';
+      }
+      document.getElementById('skor').innerText = score ;
+      generateEasy();
+    }
+  </script>
+</body>
+</html>
