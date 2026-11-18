@@ -30,7 +30,7 @@ document.getElementById('balance-display').innerText = "Διαθέσιμο υπ�
 
 function spendMoney() {
 const data = JSON.parse(localStorage.getItem("user_wallet"));
-if (data.balance >=-0) {
+if (data.balance >=-5) {
 data.balance -=5;
 localStorage.setItem("user_wallet",JSON.stringify(data));
 loadWallet();
