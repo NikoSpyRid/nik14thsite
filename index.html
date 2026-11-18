@@ -1,44 +1,67 @@
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="UTF-8">
+  <title>Wallet</title>
 </head>
 
 <body>
 
+<h1>Wallet</h1>
 
-<h1> Wallet  </h1>
+<p id="balance-display">Φόρτωση ...</p>
 
-<p id="balance-display"> Φόρτωση ... </p>
-<button onclick="spendMoney()"> Αγορά Καφέ 5 euro</button>
+<button onclick="spendMoney()">
+  Αγορά Καφέ 5 euro
+</button>
 
 <script>
+
 if (!localStorage.getItem("user_wallet")) {
-const initialData = {
-userId: "USR-9942",
-sessionToken : "abcdefghi",
-balance: 50
-};
-localStorage.setItem("user_wallet", JSON.stringify(initialData));
+  const initialData = {
+    userId: "USR-9942",
+    balance: 50
+  };
+
+  localStorage.setItem(
+    "user_wallet",
+    JSON.stringify(initialData)
+  );
 }
 
 function loadWallet() {
-const data = JSON.parse(localStorage.getItem("user_wallet"));
-document.getElementById('balance-display').innerText = "Διαθέσιμο υπόλοιπο " +data.balance ;
-}
+  const data = JSON.parse(
+    localStorage.getItem("user_wallet")
+  );
 
+  document.getElementById("balance-display").innerText =
+    "Διαθέσιμο υπόλοιπο: " + data.balance + " euro";
+}
 
 function spendMoney() {
-const data = JSON.parse(localStorage.getItem("user_wallet"));
-if (data.balance >=-5) {
-data.balance -=5;
-localStorage.setItem("user_wallet",JSON.stringify(data));
+  const data = JSON.parse(
+    localStorage.getItem("user_wallet")
+  );
+
+  if (data.balance >= 5) {
+    data.balance -= 5;
+
+    localStorage.setItem(
+      "user_wallet",
+      JSON.stringify(data)
+    );
+
+    loadWallet();
+  } else {
+    alert("Δεν έχεις αρκετά χρήματα!");
+  }
+}
+
+// Load wallet when page opens
 loadWallet();
-}
-
-}
-
 
 </script>
-  </body>
-  </html>
+
+</body>
+</html>
